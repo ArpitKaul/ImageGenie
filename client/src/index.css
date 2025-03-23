@@ -2,6 +2,14 @@
 
 @import "tailwindcss";
 
-*{
-    font-family: Outfit;
+
+
+/* Gradient animation */
+
+/* Apply background to the main container */
+.app-container {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #25094a, #05000b);
+    animation: gradientAnimation 10s infinite alternate;
+    color: white;
 }

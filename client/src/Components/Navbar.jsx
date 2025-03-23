@@ -9,8 +9,7 @@ const Navbar = () => {
     const navigate = useNavigate();
   return (
     <div className='flex items-center justify-between py-4'>
-     <Link to='/'><img className='w-28 sm:w-32 lg:w-40' src={assets.logo} alt="" />
-     </Link>
+     <Link to='/'><h1 className='text-white'>Img.AI</h1></Link>
 
      <div>
         {user ? 
@@ -31,12 +30,13 @@ const Navbar = () => {
         </div>
         :
         <div className='flex items-center gap-2 sm:gap-5'>
-            <p onClick={()=>navigate('/buy')} className='cursor-pointer'>Pricing</p>
-            <button className='bg-zinc-800 text-white px-7 py-2 text-sm rounded-full'>Login</button>
+            <p>About</p>
+            <p>Features</p>
+            <p onClick={()=>navigate('/buy')} className='cursor-pointer text-white'>Pricing</p>
+            <button className='bg-purple-600 text-white px-7 py-2 text-sm rounded-full'>Login</button>
+
         </div>
         }
-        
-
      </div>
     </div>
   )
