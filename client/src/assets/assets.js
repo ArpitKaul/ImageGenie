@@ -25,12 +25,8 @@ import ai3 from './ai-4.avif'
 import ai4 from './ai-5.avif'
 import ai5 from './ai-6.webp'
 import ai6 from './ai-7.webp'
+import ai8 from './ai8.jpeg'
 import model from './model.png'
-
-
-
-
-
 
 
 
@@ -58,6 +54,7 @@ export const assets = {
     ai4,
     ai5,
     ai6,
+    ai8,
     model
 }
 
@@ -66,16 +63,19 @@ export const stepsData = [
       title: 'Describe Your Vision',
       description: 'Type a phrase, sentence, or paragraph that describes the image you want to create.',
       icon: step_icon_1,
+      image: ai8
     },
     {
       title: 'Watch the Magic',
       description: 'Our AI-powered engine will transform your text into a high-quality, unique image in seconds.',
       icon: step_icon_2,
+      image: ai1
     },
     {
       title: 'Download & Share',
       description: 'Instantly download your creation or share it with the world directly from our platform.',
       icon: step_icon_3,
+      image: ai2
     },
   ];
 

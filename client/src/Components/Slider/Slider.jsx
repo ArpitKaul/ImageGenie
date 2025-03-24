@@ -19,7 +19,7 @@ const Slider = () => {
             AI ONLY
         </h1>
         <div className="model ">
-            <img className='h-96 w-96 ml-72 justify-between' src={assets.model} alt="" />
+            <img className='h-96 w-96 ml-[30rem] justify-between' src={assets.model} alt="" />
         </div>
        
       </div>
