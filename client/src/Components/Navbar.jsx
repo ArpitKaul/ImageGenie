@@ -4,7 +4,7 @@ import { Link , useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 const Navbar = () => {
     // const [user ,setUser] =  useState(null);
-    const {user} = useContext(AppContext)
+    const {user , setShowLogin} = useContext(AppContext)
 
     const navigate = useNavigate();
   return (
@@ -33,7 +33,7 @@ const Navbar = () => {
             <p>About</p>
             <p>Features</p>
             <p onClick={()=>navigate('/buy')} className='cursor-pointer text-white'>Pricing</p>
-            <button className='bg-purple-600 text-white px-7 py-2 text-sm rounded-full'>Login</button>
+            <button onClick={()=>setShowLogin(true)} className='bg-purple-600 text-white px-7 py-2 text-sm rounded-full cursor-pointer '>Login</button>
 
         </div>
         }
