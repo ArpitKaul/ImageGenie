@@ -15,7 +15,7 @@ const Slider = () => {
         <div className='item' style={{ '--position': 7 }}><img src={assets.ai6} alt="" /></div>
       </div>
       <div className='content'>
-        <h1 data-content="AI ONLY ">
+        <h1 data-content="AI ONLY  " className='text-white'>
             AI ONLY
         </h1>
         <div className="model ">

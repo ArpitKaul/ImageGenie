@@ -131,7 +131,7 @@ const PhotoSearch = () => {
 
   return (
     <div className="p-2 flex flex-col items-center overflow-hidden">
-      <h1 className="text-center font-bold text-2xl m-2">React Photo Search</h1>
+      <h1 className="text-center font-bold text-2xl m-2 text-white">React Photo Search</h1>
       <input
         className="rounded-lg block my-2 py-1 bg-white w-64 text-lg text-center text-black"
         type="text"

@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
 
-  const {user , setShowLogin} = useContext(AppContext)
+  const {user , setShowLogin,theme} = useContext(AppContext)
   const navigate = useNavigate()
 
   const onclickhandler = ()=>{
     if(user){
-      navigate('/result')
+      navigate('/result') 
     }
     else{
       setShowLogin(true)
@@ -33,7 +33,7 @@ const Header = () => {
         animate={{opacity:1}}
         transition={{delay:0.4 , duration:2}}
         >
-          Create beautiful <span className='text-purple-500'>AI Art</span> with Img.ai
+          Create beautiful <span className={theme.text}>AI Art</span> with Img.ai
         </motion.h1>
         <motion.p className='text-center max-w-xl mx-auto mt-5 text-white'
         initial={{opacity:0 , y:20}}

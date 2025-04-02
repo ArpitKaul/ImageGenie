@@ -1,8 +1,8 @@
 import logo from './logo.svg'
 import logo_icon from './logo_icon.svg'
-import facebook_icon from './facebook_icon.svg'
+import facebook_icon from './facebook.png'
 import instagram_icon from './instagram_icon.svg'
-import twitter_icon from './twitter_icon.svg'
+import twitter_icon from './twitter.webp'
 import star_icon from './star_icon.svg'
 import rating_star from './rating_star.svg'
 import sample_img_1 from './sample_img_1.png'
@@ -27,12 +27,14 @@ import ai5 from './ai-6.webp'
 import ai6 from './ai-7.webp'
 import ai8 from './ai8.jpeg'
 import model from './model.png'
-
+import insta from './insta.webp'
+import color from './color.png'
 
 
 
 export const assets = {
     logo,
+    insta,
     logo_icon,
     facebook_icon,
     instagram_icon,
@@ -55,7 +57,8 @@ export const assets = {
     ai5,
     ai6,
     ai8,
-    model
+    model,
+    color
 }
 
 export const stepsData = [
@@ -85,21 +88,21 @@ export const testimonialsData = [
         name:'Donald Jackman',
         role:'Graphic Designer',
         stars:5,
-        text:`I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
+        text:`I've been using ImageGenie for nearly two years, primarily for Instagram, and it has been an amazing experience..`
     },
     {
         image:profile_img_2,
         name:'Richard Nelson',
         role:'Content Creator',
-        stars:5,
-        text:`I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
+        stars:4,
+        text:`ImageGenie is an incredible tool! I've been using it for nearly two years, and it never fails to generate stunning images from text.`
     },
     {
         image:profile_img_1,
         name:'Donald Jackman',
         role:' Graphic Designer',
         stars:5,
-        text:`I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
+        text:`ImageGenie has been a game-changer for my creative work. The text-to-image generation is fast and delivers amazing results.`
     },
 ]
 
