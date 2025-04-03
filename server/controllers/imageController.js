@@ -4,9 +4,9 @@ import FormData from "form-data";
 
 export const generateImage = async (req, res) => {
     try {
-        console.log("User ID from middleware:", req.userId); // Debug log
+        console.log("User ID from middleware:", req.userId); 
 
-        const userId = req.userId; // Get userId from middleware
+        const userId = req.userId; 
         const { prompt } = req.body;
 
         if (!userId || !prompt) {

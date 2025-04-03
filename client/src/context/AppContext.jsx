@@ -1,15 +1,24 @@
+import axios from "axios";
 import { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const AppContext = createContext();
 
-const AppContextProvider = (props) => {
-    const [user, setUser] = useState(null);
-    const [showLogin, setShowLogin] = useState(false);
-    const [token, setToken] = useState(localStorage.getItem('token'))
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-    const [credit , setCredit ] = useState(false)
-    
-   
+const AppContextProvider = (props) => {
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem("user");
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+
+    const [showLogin, setShowLogin] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem("token"));
+    const [credit, setCredit] = useState(false);
+
+    const navigate = useNavigate()
+
     const gradients = [
         { bg: "bg-[radial-gradient(circle_at_top,#25094a,#05000b)]", text: "text-white", border: "border-gray-40" },
         { bg: "bg-gradient-to-r from-blue-500 to-purple-500", text: "text-white", border: "border-blue-300" }, 
@@ -20,28 +29,70 @@ const AppContextProvider = (props) => {
 
     const [theme, setTheme] = useState(() => {
         const storedTheme = localStorage.getItem("selectedTheme");
-        console.log("Loaded theme from localStorage:", storedTheme);
-        return storedTheme ? JSON.parse(storedTheme) : gradients[0]; 
+        return storedTheme ? JSON.parse(storedTheme) : gradients[0];
     });
 
     const changeTheme = (newTheme) => {
-        console.log("Changing theme to:", newTheme);
         setTheme(newTheme);
-        localStorage.setItem("selectedTheme", JSON.stringify(newTheme)); 
+        localStorage.setItem("selectedTheme", JSON.stringify(newTheme));
     };
 
     useEffect(() => {
-        console.log("Applying theme:", theme);
         document.body.className = theme.bg;
-        console.log("Applied class:", document.body.className);
     }, [theme]);
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const loadCreditData = async ()=>{
+        try{
+            const {data} = await axios.get(backendUrl + '/api/user/credits', {headers: {token}})
+
+            if(data.success){
+                setCredit(data.credits)
+                setUser(data.user)
+            }
+        } catch(error){
+            console.log(error)
+             toast.error(error.message)
+        }
+    }
+
+    const generateImage = async (prompt)=>{
+        try{
+            const {data} = await axios.post(backendUrl + '/api/image/generate-image' , {prompt} , {headers: {token}})
+
+            if(data.success){
+                loadCreditData()
+                return data.resultImage
+            }else{
+                toast.error(data.message)
+                loadCreditData()
+                if(data.creditBalance === 0 ){
+                    navigate('/buy')
+                }
+            }
+
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
+    const logout = ()=>{
+        localStorage.removeItem('token');
+        setToken('')
+        setUser(null)
+    }
+
+    useEffect(()=>{
+        if(token){
+            loadCreditData()
+        }
+    },[token])
+
+    
 
     const value = {
         user, setUser,
         showLogin, setShowLogin,
-        theme, changeTheme, gradients , backendUrl, token , setToken, credit , setCredit
+        theme, changeTheme, gradients, backendUrl, token, setToken, credit, setCredit , loadCreditData , logout , generateImage
     };
 
     return (

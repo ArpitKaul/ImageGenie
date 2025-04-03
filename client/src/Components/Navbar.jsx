@@ -1,55 +1,70 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
-    const { user, setUser, setToken, setShowLogin, changeTheme, gradients, theme } = useContext(AppContext);
+    const { user, setUser, setToken, setShowLogin, changeTheme, gradients, logout, credit  } = useContext(AppContext);
     const navigate = useNavigate();
     
     const [showColors, setShowColors] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null);
+    const colorPickerRef = useRef(null);
 
-    const handleLogout = () => {
-        setUser(null);
-        setToken(null);
-        localStorage.removeItem("token");
-        navigate("/");
-    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+            if (colorPickerRef.current && !colorPickerRef.current.contains(event.target)) {
+                setShowColors(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
 
     return (
-        <div className={`flex items-center justify-between py-4`}>
+        <div className="flex items-center justify-between py-4 px-4">
             <Link to="/">
-                <h1 className="text-white">Img.AI</h1>
+                <h1 className="text-white text-lg font-semibold">Img.AI</h1>
             </Link>
 
-            <div className="relative">
+            <div className="relative flex items-center gap-4">
                 {user ? (
-                    <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="flex items-center gap-3">
                         <button 
                             onClick={() => navigate("/buy")} 
-                            className="flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700"
+                            className="flex items-center gap-2 bg-blue-100 px-4 py-2 rounded-full hover:scale-105 transition-transform"
                         >
                             <img className="w-5" src={assets.credit_star} alt="Credit" />
-                            <p className="text-xs sm:text-sm font-medium text-gray-600">
-                                Credit left: {user.credits || 0}
+                            <p className="text-sm font-medium text-black">
+                                Credit left: {credit}
                             </p>
                         </button>
 
-                        <p className="text-gray-600 max-sm:hidden pl-4">Hi, {user.name}</p>
+                        <p className="text-gray-100 hidden sm:block cursor-pointer">Hi, {user.name}</p>
 
                         {/* Profile Dropdown */}
-                        <div className="relative">
+                        <div className="relative" ref={dropdownRef}>
                             <img 
                                 src={assets.profile_icon} 
-                                className="w-10 drop-shadow-xl cursor-pointer" 
+                                className="w-10 cursor-pointer" 
                                 alt="Profile"
-                                onClick={() => setShowDropdown(!showDropdown)} 
+                                onClick={() => setShowDropdown((prev) => !prev)} 
                             />
                             {showDropdown && (
                                 <div className="absolute top-12 right-0 z-10 bg-white rounded-md shadow-lg border text-sm">
                                     <ul className="list-none m-0 p-2">
-                                        <li className="py-2 px-4 cursor-pointer hover:bg-gray-100" onClick={handleLogout}>
+                                        <li 
+                                            className="py-2 px-4 cursor-pointer hover:bg-gray-100" 
+                                            onClick={logout}
+                                        >
                                             Logout
                                         </li>
                                     </ul>
@@ -58,19 +73,19 @@ const Navbar = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="flex items-center gap-2 sm:gap-5">
+                    <div className="flex items-center gap-4">
                         <p className="text-white cursor-pointer">About</p>
 
                         {/* Theme Picker */}
-                        <div className="relative">
+                        <div className="relative" ref={colorPickerRef}>
                             <img 
                                 className="w-6 cursor-pointer" 
                                 src={assets.color} 
                                 alt="Color Palette" 
-                                onClick={() => setShowColors(!showColors)} 
+                                onClick={() => setShowColors((prev) => !prev)} 
                             />
                             {showColors && (
-                                <div className="absolute top-10 left-1/2 -translate-x-1/2 p-2 bg-white rounded-lg shadow-md flex gap-2">
+                                <div className="absolute top-10 left-1/2 transform -translate-x-1/2 p-2 bg-white rounded-lg shadow-md flex gap-2">
                                     {gradients.map((gradient, index) => (
                                         <div 
                                             key={index} 
@@ -82,12 +97,15 @@ const Navbar = () => {
                             )}
                         </div>
 
-                        <p onClick={() => navigate("/buy")} className="cursor-pointer text-white">
+                        <p 
+                            onClick={() => navigate("/buy")} 
+                            className="cursor-pointer text-white"
+                        >
                             Pricing
                         </p>
                         <button 
                             onClick={() => setShowLogin(true)} 
-                            className="bg-purple-600 text-white px-7 py-2 text-sm rounded-full cursor-pointer"
+                            className="bg-purple-600 text-white px-6 py-2 text-sm rounded-full cursor-pointer"
                         >
                             Login
                         </button>

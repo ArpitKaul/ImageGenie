@@ -1,4 +1,3 @@
-// Find the user id from the token and it will add the user id in the request body
 
 import jwt from 'jsonwebtoken'
 

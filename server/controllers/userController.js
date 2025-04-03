@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken'
 const registerUser = async (req , res)=>{
     try{
         const {name,email,password} = req.body;
+        
 
         if(!name || !email || !password){
             return res.json({sucess:false,message: 'Missing Details'})
@@ -26,6 +27,7 @@ const registerUser = async (req , res)=>{
         const user = await newUser.save()
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET)
+        console.log(token)
 
         res.json({sucess: true , token , user: {name: user.name}})
 
@@ -69,10 +71,10 @@ const userCredits = async (req, res)=>{
         const {userId} = req.user
 
         const user = await userModel.findById(userId)
-        res.json({sucess: true, credits: user.creditBalance, user:{name: user.name}})
+        res.json({success: true, credits: user.creditBalance, user:{name: user.name}})
     }catch (error){
         console.log(error)
-        res.json({sucess: false , message: error.message})
+        res.json({success: false , message: error.message})
     }
 }
 
