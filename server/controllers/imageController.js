@@ -6,8 +6,10 @@ export const generateImage = async (req, res) => {
     try {
         console.log("User ID from middleware:", req.userId); 
 
-        const userId = req.userId; 
+        const userId = req.user.userId; 
         const { prompt } = req.body;
+
+        
 
         if (!userId || !prompt) {
             return res.json({ success: false, message: "Missing Details" });

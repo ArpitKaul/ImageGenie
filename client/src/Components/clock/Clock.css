@@ -41,8 +41,8 @@
   }
   
   .eleven {
-    top: 11%;
-    left: 22%;
+    top: 10%;
+    left: 26%;
   }
   
   .two {
@@ -87,6 +87,47 @@
   
   .ten {
     top: 25%;
-    left: 8%;
+    left: 10%;
   }
   
+  .hour-hand {
+    position: absolute;
+    z-index: 5;
+    width: 4px;
+    height: 65px;
+    background-color: #333;
+    top: 65px;
+    left: 50%;
+    transform-origin: 50% 72px;
+    margin-left: -2px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+  }
+  
+  .minute-hand {
+    position: absolute;
+    z-index: 6;
+    width: 4px;
+    height: 100px;
+    background-color: #666;
+    top: 33px;
+    left: 50%;
+    transform-origin: 50% 105px;
+    margin-left: -2px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+  }
+  
+  .second-hand {
+    position: absolute;
+    z-index: 7;
+    width: 2px;
+    height: 120px;
+    background-color: red;
+    top: 10px;
+    left: 50%;
+    transform-origin: 50% 125px;
+    margin-left: 1px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+  }
