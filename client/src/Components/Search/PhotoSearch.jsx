@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import anime from 'animejs';
-import './photo.css';
+import './Photo.css';
 
 const API_KEY = '49578434-cdd7f62deaf1d734298d7709a';
 const ITEM_DISTANCE = 10;
