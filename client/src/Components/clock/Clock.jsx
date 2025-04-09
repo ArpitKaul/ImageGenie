@@ -73,9 +73,9 @@ const Clock = () => {
         )}
         {isTimerActive && <div className="timer-display">{timer}</div>}
       </div>
-      <button className="timer-button" onClick={handleButtonClick}>
+      {/* <button className="timer-button" onClick={handleButtonClick}>
         {isTimerActive ? "Stop Timer" : "Start Timer"}
-      </button>
+      </button> */}
     </div>
   );
 };

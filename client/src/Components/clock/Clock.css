@@ -1,134 +1,155 @@
 .clock {
-    width: 300px;
-    height: 300px;
-    background: #ececec;
-    border-radius: 50%;
-    border: 14px solid #333;
-    position: relative;
-    margin: 0 auto;
-    box-shadow: 0 2vw 4vw -1vw rgba(0, 0, 0, 0.8);
-  }
-  
-  .dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #ccc;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    z-index: 10;
-    box-shadow: 0 2px 4px -1px black;
-  }
-  
-  .hour {
-    position: absolute;
-    font-weight: 700;
-    font-size: 22px;
-  }
-  
-  .twelve {
-    top: 10px;
-    left: 46%;
-  }
-  
-  .one {
-    top: 10%;
-    right: 26%;
-  }
-  
-  .eleven {
-    top: 10%;
-    left: 26%;
-  }
-  
-  .two {
-    top: 25%;
-    right: 10%;
-  }
-  
-  .three {
-    right: 10px;
-    top: 46%;
-  }
-  
-  .four {
-    right: 30px;
-    top: 67%;
-  }
-  
-  .five {
-    right: 78px;
-    top: 80%;
-  }
-  
-  .six {
-    bottom: 10px;
-    left: 50%;
-  }
-  
-  .seven {
-    left: 80px;
-    top: 82%;
-  }
-  
-  .eight {
-    left: 30px;
-    top: 67%;
-  }
-  
-  .nine {
-    left: 10px;
-    top: 46%;
-  }
-  
-  .ten {
-    top: 25%;
-    left: 10%;
-  }
-  
-  .hour-hand {
-    position: absolute;
-    z-index: 5;
-    width: 4px;
-    height: 65px;
-    background-color: #333;
-    top: 65px;
-    left: 50%;
-    transform-origin: 50% 72px;
-    margin-left: -2px;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-  }
-  
-  .minute-hand {
-    position: absolute;
-    z-index: 6;
-    width: 4px;
-    height: 100px;
-    background-color: #666;
-    top: 33px;
-    left: 50%;
-    transform-origin: 50% 105px;
-    margin-left: -2px;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-  }
-  
-  .second-hand {
-    position: absolute;
-    z-index: 7;
-    width: 2px;
-    height: 120px;
-    background-color: red;
-    top: 10px;
-    left: 50%;
-    transform-origin: 50% 125px;
-    margin-left: 1px;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-  }
-  
+  width: 200px;
+  height: 200px;
+  background: #ececec;
+  border-radius: 50%;
+  border: 9px solid #333;
+  position: relative;
+  margin: 0 auto;
+  box-shadow: 0 1.3vw 2.6vw -0.65vw rgba(0, 0, 0, 0.8);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ccc;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 10;
+  box-shadow: 0 1.5px 3px -1px black;
+}
+
+.hour {
+  position: absolute;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.twelve {
+  top: 2px;
+  left: 46%;
+}
+
+.one {
+  top: 11%;
+  right: 20%;
+}
+
+.eleven {
+  top: 10%;
+  left: 20%;
+}
+
+.two {
+  top: 26%;
+  right: 5%;
+}
+
+.three {
+  right: 6px;
+  top: 47%;
+}
+
+.four {
+  right: 20px;
+  top: 66%;
+}
+
+.five {
+  right: 47px;
+  top: 81%;
+}
+
+.six {
+  bottom: 6px;
+  left: 50%;
+}
+
+.seven {
+  left: 47px;
+  top: 81%;
+}
+
+.eight {
+  left: 20px;
+  top: 66%;
+}
+
+.nine {
+  left: 6px;
+  top: 47%;
+}
+
+.ten {
+  top: 26%;
+  left: 5%;
+}
+
+.hour-hand {
+  position: absolute;
+  z-index: 5;
+  width: 3px;
+  height: 44px;
+  background-color: #333;
+  top: 43px;
+  left: 50%;
+  transform-origin: 50% 49px;
+  margin-left: -1.5px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.minute-hand {
+  position: absolute;
+  z-index: 6;
+  width: 3px;
+  height: 66px;
+  background-color: #666;
+  top: 22px;
+  left: 50%;
+  transform-origin: 50% 70px;
+  margin-left: -1.5px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.second-hand {
+  position: absolute;
+  z-index: 7;
+  width: 2px;
+  height: 80px;
+  background-color: red;
+  top: 6px;
+  left: 50%;
+  transform-origin: 50% 84px;
+  margin-left: 0px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+/* Optional styles for timer text & button */
+/* .timer-display {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.timer-button {
+  margin-top: 16px;
+  padding: 6px 16px;
+  background-color: #9333ea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+} */

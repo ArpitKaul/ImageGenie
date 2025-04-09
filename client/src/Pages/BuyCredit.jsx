@@ -2,9 +2,76 @@ import React, { useContext } from 'react'
 import { assets, plans } from '../assets/assets'
 import { AppContext } from '../context/AppContext'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
 const BuyCredit = () => {
-  const { user } = useContext(AppContext)
+  const { user , backendUrl , loadCreditsData , token, setShowLogin } = useContext(AppContext)
+
+  const navigate = useNavigate()
+
+  const initPay = async (order) => {
+    const options = {
+      
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: 'Credits Payment',
+      description: "Credits Payment",
+      order_id: order.id,
+      receipt: order.receipt,
+      handler: async (response) => {
+        try {
+          const {data} = await axios.post(
+            backendUrl + '/api/user/verify-razor',
+            {response, orderId: order.id},
+            {headers: {token}}
+          )
+          
+          if(data.success) {
+            loadCreditsData() 
+            navigate('/');
+            toast.success('Payment successful! Credits added to your account')
+          } else {
+            toast.error('Payment verification failed')
+          }
+        } catch (error) {
+          toast.error(error.message)
+        }
+      },
+      // Add error handler
+      modal: {
+        ondismiss: () => {
+          toast.info('Payment window closed')
+        }
+      }
+    }
+    const rzp = new window.Razorpay(options)
+    rzp.open()
+  }
+  const paymentRazorpay = async (planId) => {
+    try {
+      if(!user) {
+        setShowLogin(true)
+        return // Exit if user is not logged in
+      }
+
+      const {data} = await axios.post(
+        backendUrl + '/api/user/pay-razor', 
+        {planId}, 
+        {headers: {token}}
+      )
+
+      if(data.success) {
+        initPay(data.order)
+      } else {
+        toast.error(data.message || 'Failed to create payment order')
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message)
+    }
+  }
   return (
     <motion.div className='min-h-[80vh] text-center pt-14 mb-10'
       initial={{ opacity: 0.2, y: 100 }}
@@ -20,8 +87,8 @@ const BuyCredit = () => {
             <img width={40} src={assets.logo_icon} alt="" />
             <p className='mt-3 mb-1 font-semibold text-xl'>{item.id}</p>
             <p className='text-sm opacity-90'>{item.description}</p>
-            <p className='mt-6'><span className='text-3xl font-medium'>${item.price}</span> / {item.credits} credits</p>
-            <button className='w-full bg-white text-gray-900 mt-8 text-sm rounded-md py-2.5 min-w-52 font-semibold'>{user ? 'Purchase Now' : 'Get Started Today'}</button>
+            <p className='mt-6'><span className='text-3xl font-medium'>${item.price}</span> / {item.credits}  credits</p>
+            <button onClick={()=>paymentRazorpay(item.id)} className='w-full bg-white text-gray-900 mt-8 text-sm rounded-md py-2.5 min-w-52 font-semibold'>{user ? 'Purchase Now' : 'Get Started Today'}</button>
           </div>
         ))}
       </div>

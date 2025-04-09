@@ -31,9 +31,12 @@ const Navbar = () => {
 
     return (
         <div className="flex items-center justify-between py-4 px-4">
+            <div className="flex cursor-pointer">
+                <img src={assets.logo_icon} alt="" />
             <Link to="/">
-                <h1 className="text-white text-lg font-semibold">Img.AI</h1>
+                <h1 className="text-white text-lg font-semibold ml-3">Img.AI</h1>
             </Link>
+            </div>
 
             <div className="relative flex items-center gap-4">
                 {user ? (
