@@ -76,6 +76,8 @@ const AppContextProvider = (props) => {
     }
 
     const logout = ()=>{
+        // console.log('logout');
+        localStorage.removeItem('user');
         localStorage.removeItem('token');
         setToken('')
         setUser(null)

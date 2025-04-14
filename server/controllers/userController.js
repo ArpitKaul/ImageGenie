@@ -81,8 +81,8 @@ const userCredits = async (req, res)=>{
 // razorpay
 
 const razorpayInstance = new razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
+    key_id: "rzp_test_DAcS9dFt98s47o",
+    key_secret: "RBX3uEvsTLiDDADmiTymT8y6"
 });
 
 const paymentRazorpay = async(req, res) => {
