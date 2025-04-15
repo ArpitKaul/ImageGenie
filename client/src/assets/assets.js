@@ -29,6 +29,12 @@ import ai8 from './ai8.jpeg'
 import model from './model.png'
 import insta from './insta.webp'
 import color from './color.png'
+import chrac from './chracter.webp'
+import cover from './cover.jpg'
+import title from './title.png'
+import chrac1 from './chracter1.webp'
+import cover1 from './cover1.jpg'
+import title1 from './title1.png'
 
 
 
@@ -58,7 +64,13 @@ export const assets = {
     ai6,
     ai8,
     model,
-    color
+    color,
+    chrac,
+    title,
+    cover,
+    chrac1,
+    title1,
+    cover1
 }
 
 export const stepsData = [
