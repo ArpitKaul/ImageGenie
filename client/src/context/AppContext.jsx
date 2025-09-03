@@ -41,7 +41,7 @@ const AppContextProvider = (props) => {
         document.body.className = theme.bg;
     }, [theme]);
 
-    const loadCreditData = async ()=>{
+    const loadCreditsData = async ()=>{
         try{
             const {data} = await axios.get(backendUrl + '/api/user/credits', {headers: {token}})
 
@@ -60,11 +60,11 @@ const AppContextProvider = (props) => {
             const {data} = await axios.post(backendUrl + '/api/image/generate-image' , {prompt} , {headers: {token}})
 
             if(data.success){
-                loadCreditData()
+                loadCreditsData()
                 return data.resultImage
             }else{
                 toast.error(data.message)
-                loadCreditData()
+                loadCreditsData()
                 if(data.creditBalance === 0 ){
                     navigate('/buy')
                 }
@@ -85,7 +85,7 @@ const AppContextProvider = (props) => {
 
     useEffect(()=>{
         if(token){
-            loadCreditData()
+            loadCreditsData()
         }
     },[token])
 
@@ -94,7 +94,7 @@ const AppContextProvider = (props) => {
     const value = {
         user, setUser,
         showLogin, setShowLogin,
-        theme, changeTheme, gradients, backendUrl, token, setToken, credit, setCredit , loadCreditData , logout , generateImage
+        theme, changeTheme, gradients, backendUrl, token, setToken, credit, setCredit , loadCreditsData , logout , generateImage
     };
 
     return (

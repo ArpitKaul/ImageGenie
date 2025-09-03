@@ -14,7 +14,7 @@ const BuyCredit = () => {
   const initPay = async (order) => {
     const options = {
       
-      key: "rzp_test_DAcS9dFt98s47o",
+      key: "rzp_test_RD8neyVQ5bItIj",
       amount: order.amount,
       currency: order.currency,
       name: 'Credits Payment',

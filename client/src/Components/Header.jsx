@@ -3,7 +3,7 @@ import { assets } from '../assets/assets';
 import { motion } from 'motion/react';
 import { AppContext } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
-import Clock from './clock/Clock';
+// import Clock from './clock/Clock';
 
 const Header = () => {
   const { user, setShowLogin, theme } = useContext(AppContext);
@@ -38,9 +38,9 @@ const Header = () => {
           </motion.h1>
 
           {/* ⏰ Clock component side-by-side with heading */}
-          <div className=" sm:mt-0 ml-8">
+          {/* <div className=" sm:mt-0 ml-8">
             < Clock/>
-          </div>
+          </div> */}
         </div>
 
         <motion.p
