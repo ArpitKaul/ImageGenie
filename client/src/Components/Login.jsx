@@ -29,7 +29,7 @@ const Login = () => {
             const { data } = response;
             console.log(data.success)
 
-            if (data.sucess) {
+            if (data.success) {
                 console.log("yes")
                 setToken(data.token);
                 setUser(data.user);

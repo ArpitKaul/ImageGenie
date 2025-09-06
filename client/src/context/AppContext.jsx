@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +16,7 @@ const AppContextProvider = (props) => {
 
     const [showLogin, setShowLogin] = useState(false);
     const [token, setToken] = useState(localStorage.getItem("token"));
-    const [credit, setCredit] = useState(false);
+    const [credit, setCredit] = useState(0);
 
     const navigate = useNavigate()
 
@@ -87,6 +88,7 @@ const AppContextProvider = (props) => {
         if(token){
             loadCreditsData()
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[token])
 
     
