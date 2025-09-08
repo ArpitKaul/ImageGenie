@@ -6,104 +6,121 @@ import { toast } from "react-toastify";
 
 export const AppContext = createContext();
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+// ✅ Auto-detect backend URL
+const backendUrl =
+  import.meta.env.VITE_BACKEND_URL ||
+  (import.meta.env.MODE === "development"
+    ? "http://localhost:4000"
+    : "https://image-genie-swart.vercel.app");
 
 const AppContextProvider = (props) => {
-    const [user, setUser] = useState(() => {
-        const storedUser = localStorage.getItem("user");
-        return storedUser ? JSON.parse(storedUser) : null;
-    });
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
-    const [showLogin, setShowLogin] = useState(false);
-    const [token, setToken] = useState(localStorage.getItem("token"));
-    const [credit, setCredit] = useState(0);
+  const [showLogin, setShowLogin] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [credit, setCredit] = useState(0);
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const gradients = [
-        { bg: "bg-[radial-gradient(circle_at_top,#25094a,#05000b)]", text: "text-white", border: "border-gray-40" },
-        { bg: "bg-gradient-to-r from-blue-500 to-purple-500", text: "text-white", border: "border-blue-300" }, 
-        { bg: "bg-gradient-to-r from-red-500 to-orange-500", text: "text-white", border: "border-red-300" }, 
-        { bg: "bg-gradient-to-r from-green-500 to-teal-500", text: "text-black", border: "border-green-400" }, 
-        { bg: "bg-gradient-to-r from-yellow-400 to-orange-600", text: "text-black", border: "border-yellow-500" } 
-    ];
+  const gradients = [
+    { bg: "bg-[radial-gradient(circle_at_top,#25094a,#05000b)]", text: "text-white", border: "border-gray-40" },
+    { bg: "bg-gradient-to-r from-blue-500 to-purple-500", text: "text-white", border: "border-blue-300" },
+    { bg: "bg-gradient-to-r from-red-500 to-orange-500", text: "text-white", border: "border-red-300" },
+    { bg: "bg-gradient-to-r from-green-500 to-teal-500", text: "text-black", border: "border-green-400" },
+    { bg: "bg-gradient-to-r from-yellow-400 to-orange-600", text: "text-black", border: "border-yellow-500" },
+  ];
 
-    const [theme, setTheme] = useState(() => {
-        const storedTheme = localStorage.getItem("selectedTheme");
-        return storedTheme ? JSON.parse(storedTheme) : gradients[0];
-    });
+  const [theme, setTheme] = useState(() => {
+    const storedTheme = localStorage.getItem("selectedTheme");
+    return storedTheme ? JSON.parse(storedTheme) : gradients[0];
+  });
 
-    const changeTheme = (newTheme) => {
-        setTheme(newTheme);
-        localStorage.setItem("selectedTheme", JSON.stringify(newTheme));
-    };
+  const changeTheme = (newTheme) => {
+    setTheme(newTheme);
+    localStorage.setItem("selectedTheme", JSON.stringify(newTheme));
+  };
 
-    useEffect(() => {
-        document.body.className = theme.bg;
-    }, [theme]);
+  useEffect(() => {
+    document.body.className = theme.bg;
+  }, [theme]);
 
-    const loadCreditsData = async ()=>{
-        try{
-            const {data} = await axios.get(backendUrl + '/api/user/credits', {headers: {token}})
+  const loadCreditsData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/user/credits", {
+        headers: { token },
+      });
 
-            if(data.success){
-                setCredit(data.credits)
-                setUser(data.user)
-            }
-        } catch(error){
-            console.log(error)
-             toast.error(error.message)
-        }
+      if (data.success) {
+        setCredit(data.credits);
+        setUser(data.user);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
     }
+  };
 
-    const generateImage = async (prompt)=>{
-        try{
-            const {data} = await axios.post(backendUrl + '/api/image/generate-image' , {prompt} , {headers: {token}})
+  const generateImage = async (prompt) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/image/generate-image",
+        { prompt },
+        { headers: { token } }
+      );
 
-            if(data.success){
-                loadCreditsData()
-                return data.resultImage
-            }else{
-                toast.error(data.message)
-                loadCreditsData()
-                if(data.creditBalance === 0 ){
-                    navigate('/buy')
-                }
-            }
-
-        } catch (error) {
-            toast.error(error.message)
+      if (data.success) {
+        loadCreditsData();
+        return data.resultImage;
+      } else {
+        toast.error(data.message);
+        loadCreditsData();
+        if (data.creditBalance === 0) {
+          navigate("/buy");
         }
+      }
+    } catch (error) {
+      toast.error(error.message);
     }
+  };
 
-    const logout = ()=>{
-        // console.log('logout');
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        setToken('')
-        setUser(null)
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    setToken("");
+    setUser(null);
+  };
+
+  useEffect(() => {
+    if (token) {
+      loadCreditsData();
     }
-
-    useEffect(()=>{
-        if(token){
-            loadCreditsData()
-        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[token])
+  }, [token]);
 
-    
+  const value = {
+    user,
+    setUser,
+    showLogin,
+    setShowLogin,
+    theme,
+    changeTheme,
+    gradients,
+    backendUrl,
+    token,
+    setToken,
+    credit,
+    setCredit,
+    loadCreditsData,
+    logout,
+    generateImage,
+  };
 
-    const value = {
-        user, setUser,
-        showLogin, setShowLogin,
-        theme, changeTheme, gradients, backendUrl, token, setToken, credit, setCredit , loadCreditsData , logout , generateImage
-    };
-
-    return (
-        <AppContext.Provider value={value}>
-            {props.children}
-        </AppContext.Provider>
-    );
+  return (
+    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
+  );
 };
 
 export default AppContextProvider;
