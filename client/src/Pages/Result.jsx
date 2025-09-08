@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import PhotoSearch from "../Components/Search/PhotoSearch";
 import { AppContext } from "../context/AppContext";
-import Card1 from "../Components/threeD/Card1";
+import Card1 from "../Components/ThreeD/Card1";
 import Card2 from "../Components/ThreeD/Card2";
 
 const Result = () => {
