@@ -1,42 +1,35 @@
-.container{
-    width: 6rem;
-    height: 24rem;
-    position: relative;
-    cursor: pointer;
+.card {
+  width: 19rem;
+  height: 25rem;
+  position: absolute;
+  background-image: url("/background.avif"); /* ✅ fixed */
+  background-size: cover;
+  transition: 1s;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px;
 }
-.card{
-    width: 19rem;
-    height: 25rem;
-    position: absolute;
-    background-image: url("./background.avif");
-    background-size: cover;
-    transition: 1s;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px;
-}
-.container:hover .card{
-    transform: perspective(40px) rotateX(2deg) translateY(-60px);
-}
-.bird{
-   width: 20rem;
-   height: 20rem;
-   position: relative;
 
-   background-size: 100%;
-   background-repeat: no-repeat;
-   transition: 1s;
-   animation: animate 0.2s linear infinite;animation-play-state: paused !important;
+.bird {
+  width: 20rem;
+  height: 20rem;
+  position: relative;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  transition: 1s;
+  animation: animate 0.2s linear infinite;
+  animation-play-state: paused !important;
+}
 
+.container:hover .bird {
+  animation-play-state: running !important;
+  transform: translateY(-200px) translateX(-10px);
 }
-.container:hover .bird{
-    animation-play-state: running !important ;
-    transform: translateY(-200px) translateX(-10px);
-}
-@keyframes animate{
-    from{
-        background-image: url("./bird1.png") ;
-    }
-    to{
-        background-image: url("./bird2.png");
-    }
+
+@keyframes animate {
+  from {
+    background-image: url("/bird1.png"); /* ✅ fixed */
+  }
+  to {
+    background-image: url("/bird2.png"); /* ✅ fixed */
+  }
 }
